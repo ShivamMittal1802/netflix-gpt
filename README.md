@@ -9,6 +9,19 @@
     -redirect to browse page
     -Login form
     -Signup form
+    -Routing
+    - form validation
+    -useRef hook
+    -firebase setup
+    -deploy the app to production 
+    -create signup use account in firsbase
+    -created signup user account
+    -created sign in user api
+    -create redux store with userSlice
+    -Implement sign out
+    -updateProfile 
+    -
+
 
     -Browse(after authentication)
     -header
