@@ -3,14 +3,13 @@ import Header from "./Header";
 import {checkValidationData} from '../utils/Validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/FirebaseConfig";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/UserSlice";
+import { USER_PROFILE } from "../utils/Constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMsg, setErrorMsg] = useState();
-  const navigate = useNavigate();
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
@@ -34,11 +33,10 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://media.licdn.com/dms/image/v2/D5635AQGYsUWXODNFQw/profile-framedphoto-shrink_400_400/B56ZgctioQG0Ak-/0/1752828357422?e=1753646400&v=beta&t=--GrV9V_6xVqaAHRohIpmFGwLggEkG7jB4OLsYhT6kA"
+            photoURL: USER_PROFILE
           }).then(() => {
                 const { displayName, email, uid, photoURL } = auth.currentUser;
                 dispatch(addUser({displayName: displayName, email: email, uid: uid, photoURL: photoURL }));
-                navigate('/browse');
                 console.log("name ", name.current.value);
           }).catch((error) => {
             // An error occurred
@@ -57,7 +55,6 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
             .then((userCredential) => { 
                 const user = userCredential.user;
-                navigate('/browse');
             })
             .catch((error) => {
                 const errorCode = error.code;
