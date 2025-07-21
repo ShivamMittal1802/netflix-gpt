@@ -34,6 +34,10 @@
     -embedded the youtube video
     -make it autoplay and mute
     -use tailwind for main container
+    -Build Secondary component in browse page
+    -build movieList and movieCard
+    -TMDB image cdn
+    -also complete the css with tailwind
     -
 
 
