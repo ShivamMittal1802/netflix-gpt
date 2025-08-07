@@ -38,6 +38,10 @@
     -build movieList and movieCard
     -TMDB image cdn
     -also complete the css with tailwind
+    -GPT search page
+    - gpt search bar
+    -(bonus feature)multi language feature in our app
+    -Integrate GPT api's
     -
 
 

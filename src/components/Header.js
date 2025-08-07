@@ -4,11 +4,16 @@ import { auth } from "../utils/FirebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/UserSlice";
-import {NETFLIX_LOGO} from './../utils/Constants';
+import {NETFLIX_LOGO, SUPPORTED_LANGUAGES} from './../utils/Constants';
+import { toggleGpt } from "../utils/GptToggleSlice";
+import { updateSelectedLanguage } from "../utils/LanguageSlice";
+
 
 const Header = () => {
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
+  const GptToggle = useSelector(store => store.GptToggle);
+  const selectedLanguage = useSelector((store)=> store.selectedLanguage);
   const dispatch = useDispatch();
   async function handleSignOut() {
     try {
@@ -41,6 +46,14 @@ const Header = () => {
     return () => unsubscribed();
   }, []);
 
+  const handleGptClick = () => {
+    dispatch(toggleGpt());
+  }
+
+  const handleLanguageChange=(e)=>{
+    dispatch(updateSelectedLanguage(e.target.value));
+  }
+
   return (
     <div className="z-10 flex justify-between absolute bg-gradient-to-b from-black w-full">
       <img
@@ -50,6 +63,12 @@ const Header = () => {
       />
       {userData && (
         <div className="flex p-4 ">
+          { GptToggle.GptToggle && <select value={selectedLanguage} onChange={handleLanguageChange}>
+            {SUPPORTED_LANGUAGES.map((item)=>{
+              return <option key={item.identifier} >{item.name}</option>
+            })}
+          </select>}
+          <button className="bg-red-600 rounded-lg mx-4 px-2 text-black" onClick={handleGptClick}> {!GptToggle.GptToggle ? "GPT Search" : "Home Page"} </button>
           <img
             src={userData.photoURL}
             alt="userImage"
